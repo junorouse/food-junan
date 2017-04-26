@@ -1,10 +1,14 @@
+from os import system
 from flask import Flask, render_template
+
+
 app = Flask(__name__)
 
 @app.route('/')
-def hello_world():
-  return render_template('index.html')
+def index():
+    """render index.html"""
+    return render_template('index.html')
 
 if __name__ == '__main__':
-  app.run(debug=True)
-
+    system("webpack")  # for auto reloading js files.
+    app.run(debug=True, host='0.0.0.0')

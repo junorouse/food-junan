@@ -1,6 +1,6 @@
 {
-  "name": "starter-kit",
-  "version": "1.1.0",
+  "name": "junan.io",
+  "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "start": "python app.py"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.4.5",
     "babel-loader": "^6.2.1",
@@ -18,6 +18,7 @@
     "webpack": "^1.12.12"
   },
   "dependencies": {
+    "re-bulma": "^0.4.3",
     "react": "^0.14.7",
     "react-dom": "^0.14.7"
   }
