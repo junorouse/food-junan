@@ -18,8 +18,10 @@
     "webpack": "^1.12.12"
   },
   "dependencies": {
-    "re-bulma": "^0.4.3",
-    "react": "^0.14.7",
-    "react-dom": "^0.14.7"
+    "re-bulma": "*",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-router": "*",
+    "react-router-dom": "^4.1.1"
   }
 }
