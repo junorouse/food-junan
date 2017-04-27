@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { BrowserRouter as Router, Route, IndexRoute, Link, browserHistory } from 'react-router-dom';
+import {
+    BrowserRouter as Router,
+    Route,
+    Link,
+    browserHistory,
+    Switch
+} from 'react-router-dom';
 import insertCss from 'insert-css';
 import css from 're-bulma/build/css';
 import Post from './post';
@@ -14,6 +20,7 @@ try {
 import { Columns, Column, Tabs, TabGroup, Tab} from 're-bulma';
 
 const style = { padding: '10px' };
+const linkStyle = { textDecoration: 'none' };
 
 let content = '아 배고프다.. 돼지고기와 함께 간 이곳은.. 정말로 맛있었다... 하아 배고파';
 
@@ -28,6 +35,10 @@ class Container extends Component {
 }
 
 class Best extends Component {
+    constructor () {
+        super();
+        document.title='Junan - Best Food';
+    }
     render() {
         return (
             <Column offset='isOffset2Desktop' size='is8'>
@@ -44,14 +55,27 @@ class Best extends Component {
 }
 
 class TopMenu extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {Active: document.location.pathname};
+        this.menuClick = this.menuClick.bind(this);
+    }
+
+    menuClick(x) {
+        console.log(x);
+        this.setState(prevState => ({
+            Active: x
+        }));
+    }
+
     render() {
         return (
             <Column offset='isOffset2Desktop' size='is8'>
                 <Tabs alignment='isCentered'>
                     <TabGroup>
-                        <Link to='/'><Tab isActive>베스트 맛집</Tab></Link>
-                        <Link to='/worst'><Tab>거긴 가면 안돼!</Tab></Link>
-                        <Tab>문의</Tab>
+                        <Link to='/' onClick={() => this.menuClick('/')} style={linkStyle}><Tab isActive={(this.state.Active == '/') ? true:false}>베스트 맛집</Tab></Link>
+                        <Link to='/worst' onClick={() => this.menuClick('/worst')} style={linkStyle}><Tab isActive={(this.state.Active == '/worst') ? true:false}>거긴 가면 안돼!</Tab></Link>
+                        <Link to='/contact' onClick={() => this.menuClick('/contact')} style={linkStyle}><Tab isActive={(this.state.Active == '/contact') ? true:false}>문의</Tab></Link>
                     </TabGroup>
                 </Tabs>
             </Column>
@@ -62,7 +86,7 @@ class TopMenu extends Component {
 class Worst extends Component {
     constructor () {
         super();
-        document.title='worst..';
+        document.title='Junan - Worst Food';
     }
     render() {
         return (
@@ -73,13 +97,30 @@ class Worst extends Component {
     }
 }
 
+class NotFound extends Component {
+    constructor () {
+        super();
+        document.title='404 Not Found';
+    }
+    render() {
+        return (
+            <Column offset='isOffset2Desktop' size='is8'>
+                <h2>Not Found</h2>
+            </Column>
+        );
+    }
+}
+
 render((
     <Router history = {browserHistory}>
         <Container>
             <TopMenu />
-                <Route exact={true} path='/' component={Best} />
-                <Route path='/best' component={Best} />
-                <Route path='/worst' component={Worst} />
+                <Switch>
+                    <Route exact path='/' component={Best} />
+                    <Route path='/best' component={Best} />
+                    <Route path='/worst' component={Worst} />
+                    <Route component={NotFound} />
+                </Switch>
         </Container>
     </Router>
 ), document.getElementById('reactEntry'))
