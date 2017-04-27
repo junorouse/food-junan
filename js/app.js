@@ -23,6 +23,7 @@ const style = { padding: '10px' };
 const linkStyle = { textDecoration: 'none' };
 
 let content = '아 배고프다.. 돼지고기와 함께 간 이곳은.. 정말로 맛있었다... 하아 배고파';
+content = "숙대의 명물 조대포, 언제나 가도 맛있다. 황젯살이 진짜 하.. 어깨부위 라고 하는데 1인분당 돼지 한마리다 .. 아 진짜 배고프다 으아아아앙아아아악 뭐시켜먹지?";
 
 class Container extends Component {
     render() {
@@ -38,16 +39,37 @@ class Best extends Component {
     constructor () {
         super();
         document.title='Junan - Best Food';
+        // get bet posts and render
+        // this.state = {posts: [{title: "조대포", location: "남영역", content: content}]};
+        this.state = {
+            posts: null
+        };
     }
+
+    componentDidMount() {
+        fetch('/api/bests')
+            .then(res => res.json())
+            .then(posts => {
+                console.log(posts);
+                this.setState({ posts });
+            })
+    }
+
     render() {
         return (
             <Column offset='isOffset2Desktop' size='is8'>
                 <Columns responsive='isDesktop' isMultiline>
-                    <Post title="조대포" location='남영역' content={content} img="static/img.jpeg" />
-                    <Post title="타타미" location='숙대입구'content={content} img="static/img2.jpeg" />
+                    {this.state.posts != null ? (
+                        this.state.posts.map(post => (
+                            <Post title={post.title} location={post.location} content={post.content} img="static/img.jpeg" />
+                        ))
+                    ) : (
+                        <h2>Loading ..</h2>
+                    )}
+                    {/*<Post title="타타미" location='숙대입구'content={content} img="static/img2.jpeg" />
                     <Post title="쉑쉑버거" location='두바이몰' content={content} img="static/img3.jpeg" />
                     <Post title="무슨 양꼬치" location='두바이몰' content={content} img="static/img4.jpeg" />
-                    <Post title="아웃벡 스테이크하우스" location='동탄메타폴리스' content={content} img="static/img5.jpeg" />
+                    <Post title="아웃벡 스테이크하우스" location='동탄메타폴리스' content={content} img="static/img5.jpeg" />*/}
                 </Columns>
             </Column>
         );

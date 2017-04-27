@@ -11,6 +11,7 @@ export default class Post extends Component {
       isModalOpen: false,
     };
   }
+
   render() {
     return (
       <Column style={style} size="isOneThirdDesktop">
@@ -27,7 +28,7 @@ export default class Post extends Component {
           </CardContent>
           <CardFooter>
             <CardFooterItem>
-              <Icon icon="fa fa-thumbs-o-up" size="isMedium" />
+              <a onClick={() => {alert('like!');}}><Icon icon="fa fa-thumbs-o-up" size="isMedium" /></a>
             </CardFooterItem>
             <CardFooterItem>
               <Icon icon="fa fa-commenting-o" size="isMedium" />
