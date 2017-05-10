@@ -10,6 +10,7 @@ import {
 import insertCss from 'insert-css';
 import css from 're-bulma/build/css';
 import Post from './post';
+import TopMenu from './topMenu';
 
 try {
   if (typeof document !== 'undefined' || document !== null) insertCss(css, { prepend: true });
@@ -20,7 +21,6 @@ try {
 import { Columns, Column, Tabs, TabGroup, Tab} from 're-bulma';
 
 const style = { padding: '10px' };
-const linkStyle = { textDecoration: 'none' };
 
 let content = '아 배고프다.. 돼지고기와 함께 간 이곳은.. 정말로 맛있었다... 하아 배고파';
 content = "숙대의 명물 조대포, 언제나 가도 맛있다. 황젯살이 진짜 하.. 어깨부위 라고 하는데 1인분당 돼지 한마리다 .. 아 진짜 배고프다 으아아아앙아아아악 뭐시켜먹지?";
@@ -66,44 +66,13 @@ class Best extends Component {
                     ) : (
                         <h2>Loading ..</h2>
                     )}
-                    {/*<Post title="타타미" location='숙대입구'content={content} img="static/img2.jpeg" />
-                    <Post title="쉑쉑버거" location='두바이몰' content={content} img="static/img3.jpeg" />
-                    <Post title="무슨 양꼬치" location='두바이몰' content={content} img="static/img4.jpeg" />
-                    <Post title="아웃벡 스테이크하우스" location='동탄메타폴리스' content={content} img="static/img5.jpeg" />*/}
                 </Columns>
             </Column>
         );
     }
 }
 
-class TopMenu extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {Active: document.location.pathname};
-        this.menuClick = this.menuClick.bind(this);
-    }
 
-    menuClick(x) {
-        console.log(x);
-        this.setState(prevState => ({
-            Active: x
-        }));
-    }
-
-    render() {
-        return (
-            <Column offset='isOffset2Desktop' size='is8'>
-                <Tabs alignment='isCentered'>
-                    <TabGroup>
-                        <Link to='/' onClick={() => this.menuClick('/')} style={linkStyle}><Tab isActive={(this.state.Active == '/') ? true:false}>베스트 맛집</Tab></Link>
-                        <Link to='/worst' onClick={() => this.menuClick('/worst')} style={linkStyle}><Tab isActive={(this.state.Active == '/worst') ? true:false}>거긴 가면 안돼!</Tab></Link>
-                        <Link to='/contact' onClick={() => this.menuClick('/contact')} style={linkStyle}><Tab isActive={(this.state.Active == '/contact') ? true:false}>문의</Tab></Link>
-                    </TabGroup>
-                </Tabs>
-            </Column>
-        );
-    }
-}
 
 class Worst extends Component {
     constructor () {
